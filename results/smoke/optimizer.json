@@ -1,0 +1,2146 @@
+{
+ "queries": [
+  {
+   "id": "o01",
+   "expect": "sargable_dates",
+   "sql": "SELECT count(*) FROM orders WHERE extract(year FROM order_date) = 2025 AND channel = 'store'",
+   "result": {
+    "original": "SELECT count(*) FROM orders WHERE extract(year FROM order_date) = 2025 AND channel = 'store'",
+    "chosen": "SELECT count(*) FROM orders WHERE extract(year FROM order_date) = 2025 AND channel = 'store'",
+    "original_cost": 3647.46,
+    "original_ms": 9.635,
+    "original_times": [
+     9.829,
+     9.602,
+     15.899000000000001,
+     9.635,
+     9.756,
+     9.238,
+     9.094,
+     10.536000000000001,
+     9.139000000000001
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 0.422213077545166,
+    "candidates": [
+     {
+      "rule": "sargable_dates",
+      "sql": "SELECT COUNT(*) FROM orders WHERE (order_date >= CAST('2025-01-01' AS DATE) AND order_date < CAST('2026-01-01' AS DATE)) AND channel = 'store'",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 3525.88,
+      "times_ms": [
+       9.379999999999999,
+       9.647,
+       9.198,
+       9.392000000000001,
+       9.718,
+       9.304,
+       8.949,
+       8.918,
+       8.785
+      ],
+      "median_ms": 9.304,
+      "speedup": {
+       "median": 1.025873083475298,
+       "lo": 0.995335337410594,
+       "hi": 1.1814308140838756,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "SELECT COUNT(*) AS \"_col_0\" FROM \"orders\" AS \"orders\" WHERE \"orders\".\"channel\" = 'store' AND EXTRACT(YEAR FROM \"orders\".\"order_date\") = 2025",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 3647.46,
+      "times_ms": [
+       9.527000000000001,
+       9.696000000000002,
+       10.652999999999999,
+       9.139,
+       9.409,
+       9.493,
+       8.958,
+       9.467,
+       10.072
+      ],
+      "median_ms": 9.493,
+      "speedup": {
+       "median": 1.031699380707463,
+       "lo": 0.9903052805280527,
+       "hi": 1.1129185592056619,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": "sargable_dates",
+     "confirmed_speedup": 1.0835695538057744,
+     "confirmed_lo": 0.9949500376061029,
+     "confirmed_hi": 1.170592746795223,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o02",
+   "expect": "sargable_dates",
+   "sql": "SELECT sum(p.amount) FROM payments p JOIN orders o ON o.order_id = p.order_id WHERE date_trunc('month', o.order_date) = DATE '2025-03-01'",
+   "result": {
+    "original": "SELECT sum(p.amount) FROM payments p JOIN orders o ON o.order_id = p.order_id WHERE date_trunc('month', o.order_date) = DATE '2025-03-01'",
+    "chosen": "SELECT SUM(p.amount) FROM payments AS p JOIN orders AS o ON o.order_id = p.order_id WHERE (o.order_date >= CAST('2025-03-01' AS DATE) AND o.order_date < CAST('2025-04-01' AS DATE))",
+    "original_cost": 5757.82,
+    "original_ms": 30.235,
+    "original_times": [
+     27.946,
+     30.348,
+     27.499,
+     28.61,
+     29.155,
+     38.418,
+     35.574,
+     35.577,
+     30.235
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 0.7543213367462158,
+    "candidates": [
+     {
+      "rule": "sargable_dates",
+      "sql": "SELECT SUM(p.amount) FROM payments AS p JOIN orders AS o ON o.order_id = p.order_id WHERE (o.order_date >= CAST('2025-03-01' AS DATE) AND o.order_date < CAST('2025-04-01' AS DATE))",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 4222.88,
+      "times_ms": [
+       13.941,
+       12.349,
+       12.743,
+       13.965,
+       13.806,
+       13.439,
+       14.198,
+       13.991,
+       12.993
+      ],
+      "median_ms": 13.806,
+      "speedup": {
+       "median": 2.327022242746094,
+       "lo": 2.0486931614751165,
+       "hi": 2.5428489743406475,
+       "n": 9
+      },
+      "accepted": true,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "SELECT SUM(\"p\".\"amount\") AS \"_col_0\" FROM \"payments\" AS \"p\" JOIN \"orders\" AS \"o\" ON \"o\".\"order_date\" < CAST('2025-04-01' AS DATE) AND \"o\".\"order_date\" >= CAST('2025-03-01' AS DATE) AND \"o\".\"order_id\" = \"p\".\"order_id\"",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 4222.88,
+      "times_ms": [
+       12.997,
+       13.365,
+       12.215,
+       13.049,
+       13.040999999999999,
+       13.807,
+       13.441,
+       13.879000000000001,
+       13.754
+      ],
+      "median_ms": 13.365,
+      "speedup": {
+       "median": 2.2512484650020466,
+       "lo": 2.192505172810177,
+       "hi": 2.563369118812594,
+       "n": 9
+      },
+      "accepted": true,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": "sqlglot_optimize",
+     "confirmed_speedup": 2.167519349337531,
+     "confirmed_lo": 2.0673121974074653,
+     "confirmed_hi": 2.6031411917098453,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": "sargable_dates",
+     "confirmed_speedup": 2.1526936355937725,
+     "confirmed_lo": 2.019421231816775,
+     "confirmed_hi": 2.25818435105642,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": "sargable_dates",
+     "confirmed_speedup": 2.1526936355937725,
+     "confirmed_lo": 2.019421231816775,
+     "confirmed_hi": 2.25818435105642,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": "sargable_dates",
+     "confirmed_speedup": 2.1526936355937725,
+     "confirmed_lo": 2.019421231816775,
+     "confirmed_hi": 2.25818435105642,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o03",
+   "expect": "sargable_dates",
+   "sql": "SELECT count(*) FROM orders WHERE date_part('year', order_date) = 2024 AND date_part('month', order_date) = 2",
+   "result": {
+    "original": "SELECT count(*) FROM orders WHERE date_part('year', order_date) = 2024 AND date_part('month', order_date) = 2",
+    "chosen": "SELECT COUNT(*) FROM orders WHERE (order_date >= CAST('2024-02-01' AS DATE) AND order_date < CAST('2024-03-01' AS DATE))",
+    "original_cost": 4309.01,
+    "original_ms": 15.084,
+    "original_times": [
+     16.374,
+     13.774,
+     19.778000000000002,
+     19.817999999999998,
+     12.946,
+     13.339,
+     23.634,
+     13.314,
+     15.084
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 0.4379079341888428,
+    "candidates": [
+     {
+      "rule": "sargable_dates",
+      "sql": "SELECT COUNT(*) FROM orders WHERE (order_date >= CAST('2024-02-01' AS DATE) AND order_date < CAST('2024-03-01' AS DATE))",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 169.54,
+      "times_ms": [
+       0.6799999999999999,
+       0.372,
+       0.322,
+       0.395,
+       0.31,
+       0.403,
+       0.41300000000000003,
+       0.308,
+       0.398
+      ],
+      "median_ms": 0.395,
+      "speedup": {
+       "median": 41.76129032258065,
+       "lo": 37.02688172043011,
+       "hi": 57.22518159806296,
+       "n": 9
+      },
+      "accepted": true,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "SELECT COUNT(*) AS \"_col_0\" FROM \"orders\" AS \"orders\" WHERE EXTRACT(MONTH FROM \"orders\".\"order_date\") = 2 AND EXTRACT(YEAR FROM \"orders\".\"order_date\") = 2024",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 3867.83,
+      "times_ms": [
+       16.543,
+       14.39,
+       13.991,
+       13.496,
+       13.126,
+       13.304,
+       12.834,
+       12.364,
+       18.039
+      ],
+      "median_ms": 13.496,
+      "speedup": {
+       "median": 1.0026307877330127,
+       "lo": 0.9571924947880471,
+       "hi": 1.4684350918790752,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": "sqlglot_optimize",
+     "confirmed_speedup": 0.9583379196477709,
+     "confirmed_lo": 0.83005643005643,
+     "confirmed_hi": 1.0428149086685672,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": "sargable_dates",
+     "confirmed_speedup": 35.639175257731964,
+     "confirmed_lo": 25.86382978723404,
+     "confirmed_hi": 48.06082725060827,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": "sargable_dates",
+     "confirmed_speedup": 35.639175257731964,
+     "confirmed_lo": 25.86382978723404,
+     "confirmed_hi": 48.06082725060827,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": "sargable_dates",
+     "confirmed_speedup": 35.639175257731964,
+     "confirmed_lo": 25.86382978723404,
+     "confirmed_hi": 48.06082725060827,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o04",
+   "expect": "sargable_dates",
+   "sql": "SELECT count(*) FROM orders WHERE order_date + 30 > DATE '2025-12-25'",
+   "result": {
+    "original": "SELECT count(*) FROM orders WHERE order_date + 30 > DATE '2025-12-25'",
+    "chosen": "SELECT COUNT(*) FROM orders WHERE order_date > CAST('2025-11-25' AS DATE)",
+    "original_cost": 3478.01,
+    "original_ms": 6.38,
+    "original_times": [
+     9.146999999999998,
+     9.344,
+     6.38,
+     6.309,
+     6.34,
+     6.1160000000000005,
+     6.169,
+     6.457999999999999,
+     6.683000000000001
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 0.2104640007019043,
+    "candidates": [
+     {
+      "rule": "sargable_dates",
+      "sql": "SELECT COUNT(*) FROM orders WHERE order_date > CAST('2025-11-25' AS DATE)",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 180.26,
+      "times_ms": [
+       0.454,
+       0.452,
+       0.39699999999999996,
+       0.429,
+       0.382,
+       0.46,
+       0.389,
+       0.387,
+       0.40299999999999997
+      ],
+      "median_ms": 0.40299999999999997,
+      "speedup": {
+       "median": 16.58312655086849,
+       "lo": 14.706293706293708,
+       "hi": 20.14757709251101,
+       "n": 9
+      },
+      "accepted": true,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "SELECT COUNT(*) AS \"_col_0\" FROM \"orders\" AS \"orders\" WHERE \"orders\".\"order_date\" + 30 > CAST('2025-12-25' AS DATE)",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 3478.01,
+      "times_ms": [
+       6.510000000000001,
+       7.135000000000001,
+       8.515,
+       6.489,
+       6.464,
+       6.324,
+       6.197,
+       6.051,
+       6.146
+      ],
+      "median_ms": 6.464,
+      "speedup": {
+       "median": 0.9954816846861384,
+       "lo": 0.9671094244149274,
+       "hi": 1.309600560616678,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": "sargable_dates",
+     "confirmed_speedup": 15.553444180522565,
+     "confirmed_lo": 15.183294663573083,
+     "confirmed_hi": 16.159036144578312,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": "sargable_dates",
+     "confirmed_speedup": 15.553444180522565,
+     "confirmed_lo": 15.183294663573083,
+     "confirmed_hi": 16.159036144578312,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": "sargable_dates",
+     "confirmed_speedup": 15.553444180522565,
+     "confirmed_lo": 15.183294663573083,
+     "confirmed_hi": 16.159036144578312,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o05",
+   "expect": "having_to_where",
+   "sql": "SELECT customer_id, count(*) FROM orders GROUP BY customer_id, status HAVING status = 'returned' AND count(*) > 3",
+   "result": {
+    "original": "SELECT customer_id, count(*) FROM orders GROUP BY customer_id, status HAVING status = 'returned' AND count(*) > 3",
+    "chosen": "SELECT customer_id, count(*) FROM orders GROUP BY customer_id, status HAVING status = 'returned' AND count(*) > 3",
+    "original_cost": 3147.88,
+    "original_ms": 9.813,
+    "original_times": [
+     10.2,
+     10.106,
+     9.622,
+     9.813,
+     9.023,
+     9.037,
+     9.321,
+     9.929,
+     10.122
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 0.397202730178833,
+    "candidates": [
+     {
+      "rule": "having_to_where",
+      "sql": "SELECT customer_id, COUNT(*) FROM orders WHERE status = 'returned' GROUP BY customer_id, status HAVING COUNT(*) > 3",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 3147.88,
+      "times_ms": [
+       10.257,
+       9.964,
+       9.642000000000001,
+       10.135,
+       9.033,
+       9.177,
+       10.895,
+       9.882,
+       9.736
+      ],
+      "median_ms": 9.882,
+      "speedup": {
+       "median": 0.9979257415473967,
+       "lo": 0.9682289097187964,
+       "hi": 1.0142513046969088,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "SELECT \"orders\".\"customer_id\" AS \"customer_id\", COUNT(*) AS \"_col_1\" FROM \"orders\" AS \"orders\" GROUP BY \"orders\".\"customer_id\", \"orders\".\"status\" HAVING \"orders\".\"status\" = 'returned' AND COUNT(*) > 3",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 3147.88,
+      "times_ms": [
+       10.486,
+       9.998,
+       9.713000000000001,
+       10.339,
+       9.774000000000001,
+       9.644,
+       9.356,
+       9.898,
+       9.674
+      ],
+      "median_ms": 9.774000000000001,
+      "speedup": {
+       "median": 0.9906311129414186,
+       "lo": 0.9370593114890088,
+       "hi": 1.0108021604320865,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o06",
+   "expect": "unsafe_not_in",
+   "sql": "SELECT count(*) FROM customers WHERE city NOT IN (SELECT city FROM customers WHERE country = 'GB')",
+   "result": {
+    "original": "SELECT count(*) FROM customers WHERE city NOT IN (SELECT city FROM customers WHERE country = 'GB')",
+    "chosen": "SELECT count(*) FROM customers WHERE city NOT IN (SELECT city FROM customers WHERE country = 'GB')",
+    "original_cost": 1032.11,
+    "original_ms": 3.55,
+    "original_times": [
+     3.6700000000000004,
+     3.472,
+     3.5300000000000002,
+     3.635,
+     3.623,
+     3.475,
+     3.662,
+     3.445,
+     3.55
+    ],
+    "notes": [
+     "not_in_to_not_exists skipped: customers.city or customers.city can be NULL, and NOT IN differs from NOT EXISTS when NULLs are present"
+    ],
+    "timed_runs": 20,
+    "wall_s": 0.11620879173278809,
+    "candidates": [
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "SELECT COUNT(*) AS \"_col_0\" FROM \"customers\" AS \"customers\" WHERE NOT \"customers\".\"city\" IN (SELECT \"customers\".\"city\" AS \"city\" FROM \"customers\" AS \"customers\" WHERE \"customers\".\"country\" = 'GB')",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 1032.11,
+      "times_ms": [
+       3.861,
+       3.5490000000000004,
+       3.5740000000000003,
+       3.7830000000000004,
+       3.547,
+       3.484,
+       3.4899999999999998,
+       3.617,
+       3.4939999999999998
+      ],
+      "median_ms": 3.5490000000000004,
+      "speedup": {
+       "median": 0.9876888640179071,
+       "lo": 0.9524467790987006,
+       "hi": 1.0214265576543557,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    }
+   }
+  },
+  {
+   "id": "o07",
+   "expect": "not_in_to_not_exists",
+   "sql": "SELECT count(*) FROM customers WHERE customer_id NOT IN (SELECT customer_id FROM orders)",
+   "result": {
+    "original": "SELECT count(*) FROM customers WHERE customer_id NOT IN (SELECT customer_id FROM orders)",
+    "chosen": "SELECT COUNT(*) AS _col_0 FROM customers AS customers WHERE NOT EXISTS(SELECT 1 FROM orders AS orders WHERE orders.customer_id = customers.customer_id)",
+    "original_cost": 3504.01,
+    "original_ms": 29.617,
+    "original_times": [
+     31.721,
+     34.525,
+     28.174,
+     36.14,
+     30.968,
+     28.343999999999998,
+     29.617,
+     28.840999999999998,
+     29.159000000000002
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 1.004929780960083,
+    "candidates": [
+     {
+      "rule": "not_in_to_not_exists",
+      "sql": "SELECT COUNT(*) AS _col_0 FROM customers AS customers WHERE NOT EXISTS(SELECT 1 FROM orders AS orders WHERE orders.customer_id = customers.customer_id)",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 5062.6,
+      "times_ms": [
+       19.559,
+       25.886,
+       23.46,
+       18.326,
+       19.713,
+       17.250999999999998,
+       19.541,
+       19.298,
+       19.880000000000003
+      ],
+      "median_ms": 19.559,
+      "speedup": {
+       "median": 1.5156337956092318,
+       "lo": 1.3337325195086147,
+       "hi": 1.6430351863660078,
+       "n": 9
+      },
+      "accepted": true,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "SELECT COUNT(*) AS \"_col_0\" FROM \"customers\" AS \"customers\" WHERE NOT \"customers\".\"customer_id\" IN (SELECT \"orders\".\"customer_id\" AS \"customer_id\" FROM \"orders\" AS \"orders\")",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 3504.01,
+      "times_ms": [
+       31.164,
+       31.21,
+       29.875999999999998,
+       30.339,
+       27.814,
+       26.905,
+       28.552999999999997,
+       31.467,
+       27.325
+      ],
+      "median_ms": 29.875999999999998,
+      "speedup": {
+       "median": 1.0534844824382084,
+       "lo": 0.9430311956085152,
+       "hi": 1.1133961314445961,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": "not_in_to_not_exists",
+     "confirmed_speedup": 1.5742894423327847,
+     "confirmed_lo": 1.29350058030533,
+     "confirmed_hi": 1.6852681202121391,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o08",
+   "expect": "planner_already_handles",
+   "sql": "SELECT count(*) FROM orders WHERE customer_id IN (SELECT customer_id FROM customers WHERE country = 'JP')",
+   "result": {
+    "original": "SELECT count(*) FROM orders WHERE customer_id IN (SELECT customer_id FROM customers WHERE country = 'JP')",
+    "chosen": "SELECT count(*) FROM orders WHERE customer_id IN (SELECT customer_id FROM customers WHERE country = 'JP')",
+    "original_cost": 2609.19,
+    "original_ms": 4.236,
+    "original_times": [
+     4.29,
+     5.524,
+     4.236,
+     4.373,
+     4.275,
+     4.197,
+     4.101,
+     4.16,
+     3.975
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 0.2106914520263672,
+    "candidates": [
+     {
+      "rule": "in_to_exists",
+      "sql": "SELECT COUNT(*) AS _col_0 FROM orders AS orders WHERE EXISTS(SELECT 1 FROM customers AS customers WHERE customers.country = 'JP' AND customers.customer_id = orders.customer_id)",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 2609.19,
+      "times_ms": [
+       4.212000000000001,
+       4.333,
+       4.0889999999999995,
+       4.382,
+       4.348,
+       4.273000000000001,
+       4.093999999999999,
+       4.067,
+       4.154
+      ],
+      "median_ms": 4.212000000000001,
+      "speedup": {
+       "median": 1.0017098192476797,
+       "lo": 0.9832106715731372,
+       "hi": 1.0359501100513573,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "WITH \"_u_0\" AS (SELECT \"customers\".\"customer_id\" AS \"customer_id\" FROM \"customers\" AS \"customers\" WHERE \"customers\".\"country\" = 'JP' GROUP BY \"customers\".\"customer_id\") SELECT COUNT(*) AS \"_col_0\" FROM \"orders\" AS \"orders\" LEFT JOIN \"_u_0\" AS \"_u_0\" ON \"_u_0\".\"customer_id\" = \"orders\".\"customer_id\" WHERE NOT \"_u_0\".\"customer_id\" IS NULL",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 2642.91,
+      "times_ms": [
+       4.749,
+       4.802,
+       4.985,
+       4.561,
+       6.079000000000001,
+       4.779999999999999,
+       4.505,
+       4.5009999999999994,
+       4.572
+      ],
+      "median_ms": 4.749,
+      "speedup": {
+       "median": 0.903348073278585,
+       "lo": 0.8497492477432296,
+       "hi": 0.9587809690857269,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o09",
+   "expect": "correlated_subquery",
+   "sql": "SELECT c.customer_id, (SELECT count(*) FROM orders o WHERE o.customer_id = c.customer_id) AS n FROM customers c WHERE c.country = 'FR'",
+   "result": {
+    "original": "SELECT c.customer_id, (SELECT count(*) FROM orders o WHERE o.customer_id = c.customer_id) AS n FROM customers c WHERE c.country = 'FR'",
+    "chosen": "SELECT c.customer_id, (SELECT count(*) FROM orders o WHERE o.customer_id = c.customer_id) AS n FROM customers c WHERE c.country = 'FR'",
+    "original_cost": 9726.64,
+    "original_ms": 5.77,
+    "original_times": [
+     4.851,
+     6.9959999999999996,
+     4.857,
+     6.034,
+     5.77,
+     5.36,
+     5.641,
+     5.976,
+     6.050999999999999
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 0.8333034515380859,
+    "candidates": [
+     {
+      "rule": "correlated_to_join",
+      "sql": "SELECT c.customer_id AS customer_id, COALESCE(_s0._v, 0) AS n FROM customers AS c LEFT JOIN (SELECT o.customer_id AS _k0, COUNT(*) AS _v FROM orders AS o GROUP BY o.customer_id) AS _s0 ON _s0._k0 = c.customer_id WHERE c.country = 'FR'",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 4247.27,
+      "times_ms": [
+       25.613,
+       28.431,
+       28.714000000000002,
+       31.256,
+       33.745,
+       25.802999999999997,
+       25.041,
+       36.054,
+       32.48800000000001
+      ],
+      "median_ms": 28.714000000000002,
+      "speedup": {
+       "median": 0.1893960098387538,
+       "lo": 0.16915093682524204,
+       "hi": 0.2252705562876882,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "WITH \"_u_0\" AS (SELECT COUNT(*) AS \"_col_0\", \"o\".\"customer_id\" AS \"_u_1\" FROM \"orders\" AS \"o\" GROUP BY \"o\".\"customer_id\") SELECT \"c\".\"customer_id\" AS \"customer_id\", COALESCE(\"_u_0\".\"_col_0\", 0) AS \"n\" FROM \"customers\" AS \"c\" LEFT JOIN \"_u_0\" AS \"_u_0\" ON \"_u_0\".\"_u_1\" = \"c\".\"customer_id\" WHERE \"c\".\"country\" = 'FR'",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 4084.82,
+      "times_ms": [
+       26.410999999999998,
+       40.38,
+       24.945,
+       29.729,
+       27.437,
+       25.99,
+       29.523,
+       25.151000000000003,
+       28.077
+      ],
+      "median_ms": 27.437,
+      "speedup": {
+       "median": 0.20296680009418414,
+       "lo": 0.1836734693877551,
+       "hi": 0.21551447804252588,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": "sqlglot_optimize",
+     "confirmed_speedup": 0.18334138875463188,
+     "confirmed_lo": 0.17879410117603134,
+     "confirmed_hi": 0.19300591620066454,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o10",
+   "expect": "correlated_subquery",
+   "sql": "SELECT count(*) FROM products p WHERE p.list_price > (SELECT avg(p2.list_price) FROM products p2 WHERE p2.category = p.category)",
+   "result": {
+    "original": "SELECT count(*) FROM products p WHERE p.list_price > (SELECT avg(p2.list_price) FROM products p2 WHERE p2.category = p.category)",
+    "chosen": "WITH \"_u_0\" AS (SELECT AVG(\"p2\".\"list_price\") AS \"_col_0\", \"p2\".\"category\" AS \"_u_1\" FROM \"products\" AS \"p2\" GROUP BY \"p2\".\"category\") SELECT COUNT(*) AS \"_col_0\" FROM \"products\" AS \"p\" LEFT JOIN \"_u_0\" AS \"_u_0\" ON \"_u_0\".\"_u_1\" = \"p\".\"category\" WHERE \"_u_0\".\"_col_0\" < \"p\".\"list_price\"",
+    "original_cost": 14628.68,
+    "original_ms": 41.675,
+    "original_times": [
+     39.339999999999996,
+     38.6,
+     40.279,
+     49.558,
+     77.972,
+     41.149,
+     41.675,
+     41.773,
+     46.428000000000004
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 0.6625380516052246,
+    "candidates": [
+     {
+      "rule": "correlated_to_join",
+      "sql": "SELECT COUNT(*) AS _col_0 FROM products AS p LEFT JOIN (SELECT p2.category AS _k0, AVG(p2.list_price) AS _v FROM products AS p2 GROUP BY p2.category) AS _s0 ON _s0._k0 = p.category WHERE p.list_price > _s0._v",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 39.43,
+      "times_ms": [
+       0.542,
+       0.53,
+       0.458,
+       1.161,
+       0.962,
+       0.47700000000000004,
+       0.521,
+       0.47100000000000003,
+       0.9229999999999999
+      ],
+      "median_ms": 0.53,
+      "speedup": {
+       "median": 79.99040307101724,
+       "lo": 50.3011917659805,
+       "hi": 87.94541484716154,
+       "n": 9
+      },
+      "accepted": true,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "WITH \"_u_0\" AS (SELECT AVG(\"p2\".\"list_price\") AS \"_col_0\", \"p2\".\"category\" AS \"_u_1\" FROM \"products\" AS \"p2\" GROUP BY \"p2\".\"category\") SELECT COUNT(*) AS \"_col_0\" FROM \"products\" AS \"p\" LEFT JOIN \"_u_0\" AS \"_u_0\" ON \"_u_0\".\"_u_1\" = \"p\".\"category\" WHERE \"_u_0\".\"_col_0\" < \"p\".\"list_price\"",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 39.51,
+      "times_ms": [
+       0.47300000000000003,
+       0.41500000000000004,
+       0.431,
+       0.772,
+       0.594,
+       0.485,
+       0.645,
+       0.492,
+       1.145
+      ],
+      "median_ms": 0.492,
+      "speedup": {
+       "median": 84.84329896907215,
+       "lo": 64.1943005181347,
+       "hi": 93.45475638051047,
+       "n": 9
+      },
+      "accepted": true,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": "sqlglot_optimize",
+     "confirmed_speedup": 90.66666666666667,
+     "confirmed_lo": 67.65016501650165,
+     "confirmed_hi": 97.57377049180326,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": "correlated_to_join",
+     "confirmed_speedup": 78.0114722753346,
+     "confirmed_lo": 71.29739130434785,
+     "confirmed_hi": 100.9796380090498,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": "correlated_to_join",
+     "confirmed_speedup": 78.0114722753346,
+     "confirmed_lo": 71.29739130434785,
+     "confirmed_hi": 100.9796380090498,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": "sqlglot_optimize",
+     "confirmed_speedup": 90.66666666666667,
+     "confirmed_lo": 67.65016501650165,
+     "confirmed_hi": 97.57377049180326,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o11",
+   "expect": "correlated_subquery",
+   "sql": "SELECT count(*) FROM order_items oi WHERE oi.order_id <= 1000 AND oi.unit_price < (SELECT avg(oi2.unit_price) FROM order_items oi2 WHERE oi2.product_id = oi.product_id) * 0.95",
+   "result": {
+    "original": "SELECT count(*) FROM order_items oi WHERE oi.order_id <= 1000 AND oi.unit_price < (SELECT avg(oi2.unit_price) FROM order_items oi2 WHERE oi2.product_id = oi.product_id) * 0.95",
+    "chosen": "WITH \"_u_0\" AS (SELECT AVG(\"oi2\".\"unit_price\") AS \"_col_0\", \"oi2\".\"product_id\" AS \"_u_1\" FROM \"order_items\" AS \"oi2\" GROUP BY \"oi2\".\"product_id\") SELECT COUNT(*) AS \"_col_0\" FROM \"order_items\" AS \"oi\" LEFT JOIN \"_u_0\" AS \"_u_0\" ON \"_u_0\".\"_u_1\" = \"oi\".\"product_id\" WHERE \"oi\".\"order_id\" <= 1000 AND \"oi\".\"unit_price\" < \"_u_0\".\"_col_0\" * 0.95",
+    "original_cost": 3054019.95,
+    "original_ms": 1697.513,
+    "original_times": [
+     1651.7759999999998,
+     1598.51,
+     1714.8220000000001,
+     1873.684,
+     1697.513,
+     1720.791,
+     1654.39,
+     1714.966,
+     1577.129
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 21.36988615989685,
+    "candidates": [
+     {
+      "rule": "correlated_to_join",
+      "sql": "SELECT COUNT(*) AS _col_0 FROM order_items AS oi LEFT JOIN (SELECT oi2.product_id AS _k0, AVG(oi2.unit_price) AS _v FROM order_items AS oi2 GROUP BY oi2.product_id) AS _s0 ON _s0._k0 = oi.product_id WHERE oi.order_id <= 1000 AND oi.unit_price < _s0._v * 0.95",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 10242.28,
+      "times_ms": [
+       45.848,
+       45.948,
+       46.298,
+       54.106,
+       54.586999999999996,
+       51.983,
+       47.123,
+       50.07,
+       56.328
+      ],
+      "median_ms": 50.07,
+      "speedup": {
+       "median": 34.629874690422504,
+       "lo": 31.097385824463696,
+       "hi": 36.027220380387355,
+       "n": 9
+      },
+      "accepted": true,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "WITH \"_u_0\" AS (SELECT AVG(\"oi2\".\"unit_price\") AS \"_col_0\", \"oi2\".\"product_id\" AS \"_u_1\" FROM \"order_items\" AS \"oi2\" GROUP BY \"oi2\".\"product_id\") SELECT COUNT(*) AS \"_col_0\" FROM \"order_items\" AS \"oi\" LEFT JOIN \"_u_0\" AS \"_u_0\" ON \"_u_0\".\"_u_1\" = \"oi\".\"product_id\" WHERE \"oi\".\"order_id\" <= 1000 AND \"oi\".\"unit_price\" < \"_u_0\".\"_col_0\" * 0.95",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 10250.28,
+      "times_ms": [
+       45.19,
+       59.636,
+       45.457,
+       52.674,
+       47.766,
+       49.828,
+       46.587999999999994,
+       55.5,
+       43.225
+      ],
+      "median_ms": 47.766,
+      "speedup": {
+       "median": 35.538102415944394,
+       "lo": 30.900288288288287,
+       "hi": 36.55180349634874,
+       "n": 9
+      },
+      "accepted": true,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": "sqlglot_optimize",
+     "confirmed_speedup": 33.03544827048317,
+     "confirmed_lo": 26.633539228979394,
+     "confirmed_hi": 36.72488033142293,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": "correlated_to_join",
+     "confirmed_speedup": 34.425105136843044,
+     "confirmed_lo": 28.37740724890542,
+     "confirmed_hi": 37.755849712528416,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": "correlated_to_join",
+     "confirmed_speedup": 34.425105136843044,
+     "confirmed_lo": 28.37740724890542,
+     "confirmed_hi": 37.755849712528416,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": "sqlglot_optimize",
+     "confirmed_speedup": 33.03544827048317,
+     "confirmed_lo": 26.633539228979394,
+     "confirmed_hi": 36.72488033142293,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o12",
+   "expect": "or_to_union",
+   "sql": "SELECT count(*) FROM orders WHERE customer_id = 42 OR order_date = DATE '2025-05-05'",
+   "result": {
+    "original": "SELECT count(*) FROM orders WHERE customer_id = 42 OR order_date = DATE '2025-05-05'",
+    "chosen": "SELECT count(*) FROM orders WHERE customer_id = 42 OR order_date = DATE '2025-05-05'",
+    "original_cost": 543.78,
+    "original_ms": 0.22,
+    "original_times": [
+     0.24100000000000002,
+     0.187,
+     0.202,
+     0.24000000000000002,
+     0.234,
+     0.22,
+     0.191,
+     0.23299999999999998,
+     0.205
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 0.05196833610534668,
+    "candidates": [
+     {
+      "rule": "or_to_union_all",
+      "sql": "SELECT COUNT(*) FROM (SELECT * FROM orders WHERE customer_id = 42 UNION ALL SELECT * FROM orders WHERE (order_date = CAST('2025-05-05' AS DATE)) AND NOT ((customer_id = 42) IS TRUE)) AS orders",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 531.91,
+      "times_ms": [
+       0.257,
+       0.235,
+       0.277,
+       0.22999999999999998,
+       0.257,
+       0.213,
+       0.276,
+       0.239,
+       0.25
+      ],
+      "median_ms": 0.25,
+      "speedup": {
+       "median": 0.9105058365758755,
+       "lo": 0.7292418772563177,
+       "hi": 1.0328638497652582,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "SELECT COUNT(*) AS \"_col_0\" FROM \"orders\" AS \"orders\" WHERE \"orders\".\"customer_id\" = 42 OR \"orders\".\"order_date\" = CAST('2025-05-05' AS DATE)",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 543.78,
+      "times_ms": [
+       0.249,
+       0.237,
+       0.217,
+       0.211,
+       0.195,
+       0.224,
+       0.223,
+       0.234,
+       0.2
+      ],
+      "median_ms": 0.223,
+      "speedup": {
+       "median": 0.9821428571428571,
+       "lo": 0.8565022421524664,
+       "hi": 1.137440758293839,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": "or_to_union_all",
+     "confirmed_speedup": 0.9356223175965666,
+     "confirmed_lo": 0.8199233716475095,
+     "confirmed_hi": 1.0229885057471264,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o13",
+   "expect": "cte_materialization",
+   "sql": "WITH t AS MATERIALIZED (SELECT * FROM orders) SELECT count(*) FROM t WHERE customer_id = 7",
+   "result": {
+    "original": "WITH t AS MATERIALIZED (SELECT * FROM orders) SELECT count(*) FROM t WHERE customer_id = 7",
+    "chosen": "SELECT COUNT(*) AS \"_col_0\" FROM \"orders\" AS \"orders\" WHERE \"orders\".\"customer_id\" = 7",
+    "original_cost": 5979.89,
+    "original_ms": 18.712,
+    "original_times": [
+     17.752,
+     17.881999999999998,
+     17.71,
+     17.989,
+     18.783,
+     18.805999999999997,
+     18.712,
+     19.185000000000002,
+     18.828000000000003
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 0.26700592041015625,
+    "candidates": [
+     {
+      "rule": "cte_materialization",
+      "sql": "WITH t AS NOT MATERIALIZED (SELECT * FROM orders) SELECT COUNT(*) FROM t WHERE customer_id = 7",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 8.21,
+      "times_ms": [
+       0.18,
+       0.156,
+       0.093,
+       0.163,
+       0.09,
+       0.088,
+       0.10700000000000001,
+       0.064,
+       0.072
+      ],
+      "median_ms": 0.093,
+      "speedup": {
+       "median": 190.43010752688176,
+       "lo": 110.36196319018407,
+       "hi": 261.50000000000006,
+       "n": 9
+      },
+      "accepted": true,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "SELECT COUNT(*) AS \"_col_0\" FROM \"orders\" AS \"orders\" WHERE \"orders\".\"customer_id\" = 7",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 8.21,
+      "times_ms": [
+       0.054,
+       0.064,
+       0.07100000000000001,
+       0.16,
+       0.173,
+       0.06,
+       0.154,
+       0.065,
+       0.149
+      ],
+      "median_ms": 0.07100000000000001,
+      "speedup": {
+       "median": 249.43661971830974,
+       "lo": 112.43124999999996,
+       "hi": 295.1538461538462,
+       "n": 9
+      },
+      "accepted": true,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": "sqlglot_optimize",
+     "confirmed_speedup": 201.2441860465117,
+     "confirmed_lo": 121.67204301075273,
+     "confirmed_hi": 340.7894736842105,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": "cte_materialization",
+     "confirmed_speedup": 121.4533333333333,
+     "confirmed_lo": 91.2552083333333,
+     "confirmed_hi": 294.55737704918033,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": "cte_materialization",
+     "confirmed_speedup": 121.4533333333333,
+     "confirmed_lo": 91.2552083333333,
+     "confirmed_hi": 294.55737704918033,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": "sqlglot_optimize",
+     "confirmed_speedup": 201.2441860465117,
+     "confirmed_lo": 121.67204301075273,
+     "confirmed_hi": 340.7894736842105,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o14",
+   "expect": "cte_materialization",
+   "sql": "WITH s AS (SELECT customer_id, count(*) AS n FROM orders GROUP BY customer_id) SELECT (SELECT count(*) FROM s WHERE n > 20), (SELECT max(n) FROM s)",
+   "result": {
+    "original": "WITH s AS (SELECT customer_id, count(*) AS n FROM orders GROUP BY customer_id) SELECT (SELECT count(*) FROM s WHERE n > 20), (SELECT max(n) FROM s)",
+    "chosen": "WITH s AS (SELECT customer_id, count(*) AS n FROM orders GROUP BY customer_id) SELECT (SELECT count(*) FROM s WHERE n > 20), (SELECT max(n) FROM s)",
+    "original_cost": 4260.04,
+    "original_ms": 28.008999999999997,
+    "original_times": [
+     28.008999999999997,
+     30.125999999999998,
+     25.569,
+     27.139,
+     29.631,
+     26.888,
+     30.205,
+     25.537,
+     29.231
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 1.3161303997039795,
+    "candidates": [
+     {
+      "rule": "cte_materialization",
+      "sql": "WITH s AS NOT MATERIALIZED (SELECT customer_id, COUNT(*) AS n FROM orders GROUP BY customer_id) SELECT (SELECT COUNT(*) FROM s WHERE n > 20), (SELECT MAX(n) FROM s)",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 7342.29,
+      "times_ms": [
+       52.001,
+       69.16499999999999,
+       52.391999999999996,
+       50.631,
+       56.072,
+       49.702999999999996,
+       63.784,
+       49.259,
+       49.701
+      ],
+      "median_ms": 52.001,
+      "speedup": {
+       "median": 0.5284455699814524,
+       "lo": 0.4735513608428446,
+       "hi": 0.5386242572258225,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "WITH \"s\" AS (SELECT COUNT(*) AS \"n\" FROM \"orders\" AS \"orders\" GROUP BY \"orders\".\"customer_id\") SELECT (SELECT COUNT(*) AS \"_col_0\" FROM \"s\" AS \"s\" WHERE \"s\".\"n\" > 20) AS \"_col_0\", (SELECT MAX(\"s\".\"n\") AS \"_col_0\" FROM \"s\" AS \"s\") AS \"_col_1\"",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 4260.04,
+      "times_ms": [
+       26.669999999999998,
+       29.565,
+       28.938,
+       26.154,
+       27.815,
+       29.253,
+       36.391999999999996,
+       28.391000000000002,
+       29.115
+      ],
+      "median_ms": 28.938,
+      "speedup": {
+       "median": 1.0039842005838915,
+       "lo": 0.8835786854654779,
+       "hi": 1.0502062242219723,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 30
+    }
+   }
+  },
+  {
+   "id": "o15",
+   "expect": "planner_already_handles",
+   "sql": "SELECT count(*) FROM customers c LEFT JOIN orders o ON o.customer_id = c.customer_id WHERE o.order_id IS NOT NULL",
+   "result": {
+    "original": "SELECT count(*) FROM customers c LEFT JOIN orders o ON o.customer_id = c.customer_id WHERE o.order_id IS NOT NULL",
+    "chosen": "SELECT count(*) FROM customers c LEFT JOIN orders o ON o.customer_id = c.customer_id WHERE o.order_id IS NOT NULL",
+    "original_cost": 4072.85,
+    "original_ms": 25.212999999999997,
+    "original_times": [
+     25.212999999999997,
+     34.198,
+     43.291999999999994,
+     25.451,
+     23.049999999999997,
+     28.636999999999997,
+     22.518,
+     23.525000000000002,
+     23.984
+    ],
+    "notes": [],
+    "timed_runs": 20,
+    "wall_s": 0.6347887516021729,
+    "candidates": [
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "SELECT COUNT(*) AS \"_col_0\" FROM \"customers\" AS \"c\" LEFT JOIN \"orders\" AS \"o\" ON \"c\".\"customer_id\" = \"o\".\"customer_id\" WHERE \"o\".\"order_id\" IS NOT NULL",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 4072.85,
+      "times_ms": [
+       23.474,
+       24.99,
+       24.908,
+       24.175,
+       24.182,
+       39.543,
+       27.261,
+       26.529,
+       24.534000000000002
+      ],
+      "median_ms": 24.908,
+      "speedup": {
+       "median": 0.9775821309203554,
+       "lo": 0.8867654265143806,
+       "hi": 1.368467386954782,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    }
+   }
+  },
+  {
+   "id": "o16",
+   "expect": "distinct_join",
+   "sql": "SELECT DISTINCT c.customer_id FROM customers c JOIN orders o ON o.customer_id = c.customer_id WHERE o.channel = 'store' AND c.country = 'DE'",
+   "result": {
+    "original": "SELECT DISTINCT c.customer_id FROM customers c JOIN orders o ON o.customer_id = c.customer_id WHERE o.channel = 'store' AND c.country = 'DE'",
+    "chosen": "SELECT DISTINCT c.customer_id FROM customers c JOIN orders o ON o.customer_id = c.customer_id WHERE o.channel = 'store' AND c.country = 'DE'",
+    "original_cost": 3608.25,
+    "original_ms": 12.010000000000002,
+    "original_times": [
+     13.786999999999999,
+     12.154,
+     11.729000000000001,
+     12.052,
+     11.605,
+     11.682,
+     12.391,
+     11.803,
+     12.010000000000002
+    ],
+    "notes": [],
+    "timed_runs": 30,
+    "wall_s": 0.5667662620544434,
+    "candidates": [
+     {
+      "rule": "distinct_join_to_exists",
+      "sql": "SELECT DISTINCT c.customer_id AS customer_id FROM customers AS c WHERE c.country = 'DE' AND EXISTS(SELECT 1 FROM orders AS o WHERE o.customer_id = c.customer_id AND o.channel = 'store')",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 3915.83,
+      "times_ms": [
+       18.389,
+       20.483999999999998,
+       19.789,
+       17.758,
+       16.682,
+       15.991000000000001,
+       15.844,
+       15.588000000000001,
+       17.512
+      ],
+      "median_ms": 17.512,
+      "speedup": {
+       "median": 0.6956599928066179,
+       "lo": 0.5933411443077524,
+       "hi": 0.7571850141134205,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     },
+     {
+      "rule": "sqlglot_optimize",
+      "sql": "SELECT DISTINCT \"c\".\"customer_id\" AS \"customer_id\" FROM \"customers\" AS \"c\" JOIN \"orders\" AS \"o\" ON \"c\".\"customer_id\" = \"o\".\"customer_id\" AND \"o\".\"channel\" = 'store' WHERE \"c\".\"country\" = 'DE'",
+      "valid": true,
+      "equivalent_main": true,
+      "equivalent_edge": true,
+      "reject_reason": "",
+      "cost": 3608.25,
+      "times_ms": [
+       12.261,
+       14.591,
+       11.627,
+       11.967,
+       11.725,
+       12.038,
+       11.972,
+       11.53,
+       12.038
+      ],
+      "median_ms": 11.972,
+      "speedup": {
+       "median": 1.0071028662154258,
+       "lo": 0.9704269812261173,
+       "hi": 1.0236773633998266,
+       "n": 9
+      },
+      "accepted": false,
+      "verified": true
+     }
+    ]
+   },
+   "policies": {
+    "original": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "sqlglot_only": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "cost_top1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 0
+    },
+    "gate_topk1": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 20
+    },
+    "gate_all": {
+     "rule": null,
+     "confirmed_speedup": 1.0,
+     "confirmed_lo": 1.0,
+     "confirmed_hi": 1.0,
+     "timing_runs": 30
+    }
+   }
+  }
+ ],
+ "rounds": 9,
+ "confirm_rounds": 9,
+ "rules": [
+  "sargable_dates",
+  "having_to_where",
+  "in_to_exists",
+  "not_in_to_not_exists",
+  "correlated_to_join",
+  "or_to_union_all",
+  "cte_materialization",
+  "distinct_join_to_exists",
+  "sqlglot_optimize"
+ ],
+ "summary": {
+  "original": {
+   "n_rewritten": 0,
+   "geomean_speedup": 1.0,
+   "median_speedup": 1.0,
+   "n_regressions": 0,
+   "n_slower_median": 0,
+   "timing_runs": 0
+  },
+  "sqlglot_only": {
+   "n_rewritten": 5,
+   "geomean_speedup": 2.4049278586396543,
+   "median_speedup": 1.0,
+   "n_regressions": 0,
+   "n_slower_median": 1,
+   "timing_runs": 320
+  },
+  "cost_top1": {
+   "n_rewritten": 9,
+   "geomean_speedup": 3.0989341284280996,
+   "median_speedup": 1.0,
+   "n_regressions": 1,
+   "n_slower_median": 2,
+   "timing_runs": 0
+  },
+  "gate_topk1": {
+   "n_rewritten": 6,
+   "geomean_speedup": 3.4425973269319243,
+   "median_speedup": 1.0,
+   "n_regressions": 0,
+   "n_slower_median": 0,
+   "timing_runs": 320
+  },
+  "gate_all": {
+   "n_rewritten": 7,
+   "geomean_speedup": 3.680215618684244,
+   "median_speedup": 1.0,
+   "n_regressions": 0,
+   "n_slower_median": 0,
+   "timing_runs": 460
+  },
+  "cost_vs_time": {
+   "pairs": [
+    {
+     "id": "o01",
+     "rule": "sargable_dates",
+     "cost_ratio": 0.9666672149934475,
+     "time_ratio": 0.9656460819927348
+    },
+    {
+     "id": "o01",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 1.0,
+     "time_ratio": 0.9852620653866113
+    },
+    {
+     "id": "o02",
+     "rule": "sargable_dates",
+     "cost_ratio": 0.7334164666488359,
+     "time_ratio": 0.4566231189019348
+    },
+    {
+     "id": "o02",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 0.7334164666488359,
+     "time_ratio": 0.44203737390441544
+    },
+    {
+     "id": "o03",
+     "rule": "sargable_dates",
+     "cost_ratio": 0.039345464503447426,
+     "time_ratio": 0.02618668788119862
+    },
+    {
+     "id": "o03",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 0.8976145332686626,
+     "time_ratio": 0.8947228851763458
+    },
+    {
+     "id": "o04",
+     "rule": "sargable_dates",
+     "cost_ratio": 0.05182848812970635,
+     "time_ratio": 0.06316614420062695
+    },
+    {
+     "id": "o04",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 1.0,
+     "time_ratio": 1.013166144200627
+    },
+    {
+     "id": "o05",
+     "rule": "having_to_where",
+     "cost_ratio": 1.0,
+     "time_ratio": 1.0070314888413328
+    },
+    {
+     "id": "o05",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 1.0,
+     "time_ratio": 0.9960256802201162
+    },
+    {
+     "id": "o06",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 1.0,
+     "time_ratio": 0.9997183098591551
+    },
+    {
+     "id": "o07",
+     "rule": "not_in_to_not_exists",
+     "cost_ratio": 1.4448018127802147,
+     "time_ratio": 0.6603977445386096
+    },
+    {
+     "id": "o07",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 1.0,
+     "time_ratio": 1.0087449775466792
+    },
+    {
+     "id": "o08",
+     "rule": "in_to_exists",
+     "cost_ratio": 1.0,
+     "time_ratio": 0.9943342776203968
+    },
+    {
+     "id": "o08",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 1.012923550987088,
+     "time_ratio": 1.1211048158640227
+    },
+    {
+     "id": "o09",
+     "rule": "correlated_to_join",
+     "cost_ratio": 0.43666363718611984,
+     "time_ratio": 4.976429809358753
+    },
+    {
+     "id": "o09",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 0.4199620835149651,
+     "time_ratio": 4.7551126516464475
+    },
+    {
+     "id": "o10",
+     "rule": "correlated_to_join",
+     "cost_ratio": 0.00269539015140122,
+     "time_ratio": 0.012717456508698263
+    },
+    {
+     "id": "o10",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 0.002700858860813142,
+     "time_ratio": 0.011805638872225556
+    },
+    {
+     "id": "o11",
+     "rule": "correlated_to_join",
+     "cost_ratio": 0.003353704352848121,
+     "time_ratio": 0.02949609222433054
+    },
+    {
+     "id": "o11",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 0.0033563238511261197,
+     "time_ratio": 0.028138812486266675
+    },
+    {
+     "id": "o12",
+     "rule": "or_to_union_all",
+     "cost_ratio": 0.9781713192835337,
+     "time_ratio": 1.1363636363636365
+    },
+    {
+     "id": "o12",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 1.0,
+     "time_ratio": 1.0136363636363637
+    },
+    {
+     "id": "o13",
+     "rule": "cte_materialization",
+     "cost_ratio": 0.0013729349536529937,
+     "time_ratio": 0.004970072680632749
+    },
+    {
+     "id": "o13",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 0.0013729349536529937,
+     "time_ratio": 0.0037943565626336047
+    },
+    {
+     "id": "o14",
+     "rule": "cte_materialization",
+     "cost_ratio": 1.7235260701777448,
+     "time_ratio": 1.8565818129886824
+    },
+    {
+     "id": "o14",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 1.0,
+     "time_ratio": 1.033167910314542
+    },
+    {
+     "id": "o15",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 1.0,
+     "time_ratio": 0.9879030658787135
+    },
+    {
+     "id": "o16",
+     "rule": "distinct_join_to_exists",
+     "cost_ratio": 1.0852435391117579,
+     "time_ratio": 1.4581182348043296
+    },
+    {
+     "id": "o16",
+     "rule": "sqlglot_optimize",
+     "cost_ratio": 1.0,
+     "time_ratio": 0.996835970024979
+    }
+   ],
+   "queries": 16,
+   "cheapest_is_fastest": 4,
+   "n_pairs": 30,
+   "n_wrong_direction": 3,
+   "spearman": 0.6627363737486096
+  },
+  "unsafe_rewrites_refused": 1,
+  "rejected_not_equivalent": 0
+ }
+}

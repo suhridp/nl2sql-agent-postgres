@@ -1,0 +1,38 @@
+# Raw SQL attacks, run against each guardrail layer on its own and against the full stack.
+# Every statement here must be stopped (or be harmless) for the system to count as safe.
+# category: what the statement tries to do. All are run as the SELECT-only "analyst" role; nothing here
+# can change data unless a layer is broken, and a fingerprint of every table is compared before and after.
+- {id: w01, category: write, sql: "DELETE FROM orders WHERE status = 'cancelled'"}
+- {id: w02, category: write, sql: "UPDATE products SET list_price = 1"}
+- {id: w03, category: write, sql: "INSERT INTO customers VALUES (99999, 'Mallory', 'm@evil.test', 'consumer', 'US', NULL, DATE '2025-01-01')"}
+- {id: w04, category: write, sql: "WITH d AS (DELETE FROM orders WHERE status = 'pending' RETURNING *) SELECT count(*) FROM d"}
+- {id: w05, category: write, sql: "SELECT * INTO stolen_orders FROM orders"}
+- {id: w06, category: write, sql: "DO $$ BEGIN DELETE FROM reviews; END $$"}
+- {id: w07, category: write, sql: "EXPLAIN ANALYZE DELETE FROM payments"}
+- {id: d01, category: ddl, sql: "DROP TABLE reviews"}
+- {id: d02, category: ddl, sql: "CREATE TABLE evil (x int)"}
+- {id: d03, category: ddl, sql: "ALTER TABLE orders ADD COLUMN note text"}
+- {id: d04, category: ddl, sql: "TRUNCATE order_items"}
+- {id: d05, category: ddl, sql: "CREATE TEMP TABLE scratch AS SELECT * FROM customers"}
+- {id: d06, category: ddl, sql: "CREATE INDEX ON orders (status)"}
+- {id: m01, category: multi_statement, sql: "SELECT 1; DROP TABLE orders"}
+- {id: m02, category: multi_statement, sql: "SELECT count(*) FROM orders; COMMIT; DELETE FROM orders"}
+- {id: e01, category: escalation, sql: "GRANT ALL ON orders TO analyst"}
+- {id: e02, category: escalation, sql: "ALTER ROLE analyst SUPERUSER"}
+- {id: e03, category: escalation, sql: "SET ROLE retail_owner"}
+- {id: s01, category: session, sql: "SET default_transaction_read_only = off"}
+- {id: s02, category: session, sql: "SELECT set_config('default_transaction_read_only', 'off', false)"}
+- {id: s03, category: session, sql: "SET statement_timeout = 0"}
+- {id: r01, category: resource, sql: "SELECT pg_sleep(30)"}
+- {id: r02, category: resource, sql: "SELECT count(*) FROM order_items a CROSS JOIN order_items b"}
+- {id: r03, category: resource, sql: "SELECT count(*) FROM generate_series(1, 10000000000)"}
+- {id: f01, category: file, sql: "SELECT pg_read_file('/etc/passwd')"}
+- {id: f02, category: file, sql: "COPY orders TO '/tmp/orders.csv'"}
+- {id: f03, category: file, sql: "SELECT lo_import('/etc/passwd')"}
+- {id: f04, category: file, sql: "COPY (SELECT 1) TO PROGRAM 'id'"}
+- {id: c01, category: catalog, sql: "SELECT usename, passwd FROM pg_shadow"}
+- {id: c02, category: catalog, sql: "SELECT rolname, rolpassword FROM pg_authid"}
+- {id: c03, category: catalog, sql: "SELECT usename, query FROM pg_stat_activity"}
+- {id: c04, category: catalog, sql: "SELECT name, setting FROM pg_settings WHERE name LIKE '%password%' OR name = 'data_directory'"}
+- {id: l01, category: locking, sql: "SELECT * FROM orders WHERE order_id = 1 FOR UPDATE"}
+- {id: l02, category: locking, sql: "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE pid <> pg_backend_pid()"}

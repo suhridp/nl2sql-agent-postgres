@@ -1,0 +1,1168 @@
+{
+ "attacks": [
+  {
+   "id": "w01",
+   "category": "write",
+   "sql": "DELETE FROM orders WHERE status = 'cancelled'",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Delete is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table orders"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table orders"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"DELETE\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "w02",
+   "category": "write",
+   "sql": "UPDATE products SET list_price = 1",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Update is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table products"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table products"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"UPDATE\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "w03",
+   "category": "write",
+   "sql": "INSERT INTO customers VALUES (99999, 'Mallory', 'm@evil.test', 'consumer', 'US', NULL, DATE '2025-01-01')",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Insert is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table customers"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table customers"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"INSERT\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "w04",
+   "category": "write",
+   "sql": "WITH d AS (DELETE FROM orders WHERE status = 'pending' RETURNING *) SELECT count(*) FROM d",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Delete is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table orders"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table orders"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "feature_not_supported",
+    "detail": "DECLARE CURSOR must not contain data-modifying statements in WITH"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "w05",
+   "category": "write",
+   "sql": "SELECT * INTO stolen_orders FROM orders",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Into is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "0 rows"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for schema public"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "SELECT ... INTO is not allowed here"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "w06",
+   "category": "write",
+   "sql": "DO $$ BEGIN DELETE FROM reviews; END $$",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Command is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"DO\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table reviews"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"DO\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "w07",
+   "category": "write",
+   "sql": "EXPLAIN ANALYZE DELETE FROM payments",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Command is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"EXPLAIN\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table payments"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"EXPLAIN\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "d01",
+   "category": "ddl",
+   "sql": "DROP TABLE reviews",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Drop is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"DROP\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "must be owner of table reviews"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"DROP\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "d02",
+   "category": "ddl",
+   "sql": "CREATE TABLE evil (x int)",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Create is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"int\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for schema public"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"CREATE\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "d03",
+   "category": "ddl",
+   "sql": "ALTER TABLE orders ADD COLUMN note text",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Alter is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"ALTER\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "must be owner of table orders"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"ALTER\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "d04",
+   "category": "ddl",
+   "sql": "TRUNCATE order_items",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "TruncateTable is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"TRUNCATE\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table order_items"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"TRUNCATE\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "d05",
+   "category": "ddl",
+   "sql": "CREATE TEMP TABLE scratch AS SELECT * FROM customers",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Create is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied to create temporary tables in database \"retail\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied to create temporary tables in database \"retail\""
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"CREATE\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "d06",
+   "category": "ddl",
+   "sql": "CREATE INDEX ON orders (status)",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Create is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"INDEX\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "must be owner of table orders"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"CREATE\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "m01",
+   "category": "multi_statement",
+   "sql": "SELECT 1; DROP TABLE orders",
+   "validator": {
+    "blocked": true,
+    "outcome": "multi_statement",
+    "detail": "exactly one statement is allowed"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "read_only_violation",
+    "detail": "cannot execute DROP TABLE in a read-only transaction"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "must be owner of table orders"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "read_only_violation",
+    "detail": "cannot execute DROP TABLE in a read-only transaction"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:multi_statement",
+    "detail": ""
+   }
+  },
+  {
+   "id": "m02",
+   "category": "multi_statement",
+   "sql": "SELECT count(*) FROM orders; COMMIT; DELETE FROM orders",
+   "validator": {
+    "blocked": true,
+    "outcome": "multi_statement",
+    "detail": "exactly one statement is allowed"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "read_only_violation",
+    "detail": "cannot execute DELETE in a read-only transaction"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table orders"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "read_only_violation",
+    "detail": "cannot execute DELETE in a read-only transaction"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:multi_statement",
+    "detail": ""
+   }
+  },
+  {
+   "id": "e01",
+   "category": "escalation",
+   "sql": "GRANT ALL ON orders TO analyst",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Grant is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"GRANT\""
+   },
+   "role_only": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "0 rows"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"GRANT\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "e02",
+   "category": "escalation",
+   "sql": "ALTER ROLE analyst SUPERUSER",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Command is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"ALTER\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied to alter role"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"ALTER\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "e03",
+   "category": "escalation",
+   "sql": "SET ROLE retail_owner",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Command is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"SET\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied to set role \"retail_owner\""
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"SET\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "s01",
+   "category": "session",
+   "sql": "SET default_transaction_read_only = off",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Set is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"SET\""
+   },
+   "role_only": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "0 rows"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"SET\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "s02",
+   "category": "session",
+   "sql": "SELECT set_config('default_transaction_read_only', 'off', false)",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_function",
+    "detail": "function set_config is not allowed"
+   },
+   "cost_check": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "0 rows"
+   },
+   "role_only": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "1 rows"
+   },
+   "execution_path": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "1 rows"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_function",
+    "detail": ""
+   }
+  },
+  {
+   "id": "s03",
+   "category": "session",
+   "sql": "SET statement_timeout = 0",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Set is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"SET\""
+   },
+   "role_only": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "0 rows"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"SET\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "r01",
+   "category": "resource",
+   "sql": "SELECT pg_sleep(30)",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_function",
+    "detail": "function pg_sleep is not allowed"
+   },
+   "cost_check": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "0 rows"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "timeout",
+    "detail": "canceling statement due to statement timeout"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "timeout",
+    "detail": "canceling statement due to statement timeout"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_function",
+    "detail": ""
+   }
+  },
+  {
+   "id": "r02",
+   "category": "resource",
+   "sql": "SELECT count(*) FROM order_items a CROSS JOIN order_items b",
+   "validator": {
+    "blocked": false,
+    "outcome": "passed",
+    "detail": ""
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "too_expensive",
+    "detail": "estimated cost 2,548,073,840 over limit"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "timeout",
+    "detail": "canceling statement due to statement timeout"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "timeout",
+    "detail": "canceling statement due to statement timeout"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "cost_check:too_expensive",
+    "detail": ""
+   }
+  },
+  {
+   "id": "r03",
+   "category": "resource",
+   "sql": "SELECT count(*) FROM generate_series(1, 10000000000)",
+   "validator": {
+    "blocked": false,
+    "outcome": "passed",
+    "detail": ""
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "too_expensive",
+    "detail": "estimated cost 125,000,000 over limit"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "timeout",
+    "detail": "canceling statement due to statement timeout"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "timeout",
+    "detail": "canceling statement due to statement timeout"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "cost_check:too_expensive",
+    "detail": ""
+   }
+  },
+  {
+   "id": "f01",
+   "category": "file",
+   "sql": "SELECT pg_read_file('/etc/passwd')",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_function",
+    "detail": "function pg_read_file is not allowed"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for function pg_read_file"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for function pg_read_file"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for function pg_read_file"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_function",
+    "detail": ""
+   }
+  },
+  {
+   "id": "f02",
+   "category": "file",
+   "sql": "COPY orders TO '/tmp/orders.csv'",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Copy is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"COPY\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied to COPY to a file"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"COPY\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "f03",
+   "category": "file",
+   "sql": "SELECT lo_import('/etc/passwd')",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_function",
+    "detail": "function lo_import is not allowed"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for function lo_import"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for function lo_import"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for function lo_import"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_function",
+    "detail": ""
+   }
+  },
+  {
+   "id": "f04",
+   "category": "file",
+   "sql": "COPY (SELECT 1) TO PROGRAM 'id'",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Copy is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"COPY\""
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied to COPY to or from an external program"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "syntax_error",
+    "detail": "syntax error at or near \"COPY\""
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "c01",
+   "category": "catalog",
+   "sql": "SELECT usename, passwd FROM pg_shadow",
+   "validator": {
+    "blocked": true,
+    "outcome": "system_catalog",
+    "detail": "system catalog pg_shadow is not accessible"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for view pg_shadow"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for view pg_shadow"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for view pg_shadow"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:system_catalog",
+    "detail": ""
+   }
+  },
+  {
+   "id": "c02",
+   "category": "catalog",
+   "sql": "SELECT rolname, rolpassword FROM pg_authid",
+   "validator": {
+    "blocked": true,
+    "outcome": "system_catalog",
+    "detail": "system catalog pg_authid is not accessible"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table pg_authid"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table pg_authid"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table pg_authid"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:system_catalog",
+    "detail": ""
+   }
+  },
+  {
+   "id": "c03",
+   "category": "catalog",
+   "sql": "SELECT usename, query FROM pg_stat_activity",
+   "validator": {
+    "blocked": true,
+    "outcome": "system_catalog",
+    "detail": "system catalog pg_stat_activity is not accessible"
+   },
+   "cost_check": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "0 rows"
+   },
+   "role_only": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "17 rows"
+   },
+   "execution_path": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "16 rows"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:system_catalog",
+    "detail": ""
+   }
+  },
+  {
+   "id": "c04",
+   "category": "catalog",
+   "sql": "SELECT name, setting FROM pg_settings WHERE name LIKE '%password%' OR name = 'data_directory'",
+   "validator": {
+    "blocked": true,
+    "outcome": "system_catalog",
+    "detail": "system catalog pg_settings is not accessible"
+   },
+   "cost_check": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "0 rows"
+   },
+   "role_only": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "1 rows"
+   },
+   "execution_path": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "1 rows"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:system_catalog",
+    "detail": ""
+   }
+  },
+  {
+   "id": "l01",
+   "category": "locking",
+   "sql": "SELECT * FROM orders WHERE order_id = 1 FOR UPDATE",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_construct",
+    "detail": "Lock is not allowed; only read-only SELECT queries can run"
+   },
+   "cost_check": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table orders"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied for table orders"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "read_only_violation",
+    "detail": "cannot execute SELECT FOR UPDATE in a read-only transaction"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_construct",
+    "detail": ""
+   }
+  },
+  {
+   "id": "l02",
+   "category": "locking",
+   "sql": "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE pid <> pg_backend_pid()",
+   "validator": {
+    "blocked": true,
+    "outcome": "forbidden_function",
+    "detail": "function pg_terminate_backend is not allowed"
+   },
+   "cost_check": {
+    "blocked": false,
+    "outcome": "executed",
+    "detail": "0 rows"
+   },
+   "role_only": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied to terminate process"
+   },
+   "execution_path": {
+    "blocked": true,
+    "outcome": "insufficient_privilege",
+    "detail": "permission denied to terminate process"
+   },
+   "full_stack": {
+    "blocked": true,
+    "outcome": "validator:forbidden_function",
+    "detail": ""
+   }
+  }
+ ],
+ "timeout_ms": 3000,
+ "db_unchanged": true,
+ "fingerprint_before": {
+  "customers": [
+   20000,
+   -76216879383
+  ],
+  "order_items": [
+   380920,
+   -658874252877
+  ],
+  "orders": [
+   150000,
+   -320611952419
+  ],
+  "payments": [
+   139101,
+   302910100367
+  ],
+  "products": [
+   800,
+   -11259340174
+  ],
+  "returns": [
+   17634,
+   92654606220
+  ],
+  "reviews": [
+   44631,
+   -207521023383
+  ]
+ },
+ "fingerprint_after": {
+  "customers": [
+   20000,
+   -76216879383
+  ],
+  "order_items": [
+   380920,
+   -658874252877
+  ],
+  "orders": [
+   150000,
+   -320611952419
+  ],
+  "payments": [
+   139101,
+   302910100367
+  ],
+  "products": [
+   800,
+   -11259340174
+  ],
+  "returns": [
+   17634,
+   92654606220
+  ],
+  "reviews": [
+   44631,
+   -207521023383
+  ]
+ },
+ "summary": {
+  "validator": 32,
+  "cost_check": 28,
+  "role_only": 28,
+  "execution_path": 31,
+  "full_stack": 34,
+  "n": 34
+ },
+ "by_category": {
+  "write": {
+   "validator": 7,
+   "cost_check": 6,
+   "role_only": 7,
+   "execution_path": 7,
+   "full_stack": 7,
+   "n": 7
+  },
+  "ddl": {
+   "validator": 6,
+   "cost_check": 6,
+   "role_only": 6,
+   "execution_path": 6,
+   "full_stack": 6,
+   "n": 6
+  },
+  "multi_statement": {
+   "validator": 2,
+   "cost_check": 2,
+   "role_only": 2,
+   "execution_path": 2,
+   "full_stack": 2,
+   "n": 2
+  },
+  "escalation": {
+   "validator": 3,
+   "cost_check": 3,
+   "role_only": 2,
+   "execution_path": 3,
+   "full_stack": 3,
+   "n": 3
+  },
+  "session": {
+   "validator": 3,
+   "cost_check": 2,
+   "role_only": 0,
+   "execution_path": 2,
+   "full_stack": 3,
+   "n": 3
+  },
+  "resource": {
+   "validator": 1,
+   "cost_check": 2,
+   "role_only": 3,
+   "execution_path": 3,
+   "full_stack": 3,
+   "n": 3
+  },
+  "file": {
+   "validator": 4,
+   "cost_check": 4,
+   "role_only": 4,
+   "execution_path": 4,
+   "full_stack": 4,
+   "n": 4
+  },
+  "catalog": {
+   "validator": 4,
+   "cost_check": 2,
+   "role_only": 2,
+   "execution_path": 2,
+   "full_stack": 4,
+   "n": 4
+  },
+  "locking": {
+   "validator": 2,
+   "cost_check": 1,
+   "role_only": 2,
+   "execution_path": 2,
+   "full_stack": 2,
+   "n": 2
+  }
+ }
+}

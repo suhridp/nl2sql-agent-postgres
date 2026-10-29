@@ -1,0 +1,14 @@
+# Pilot: one model, one trial, every system. Use it to check prompts and parsing before the main run.
+# Cached responses replay for free; re-running only pays for new calls.
+name: pilot
+seed: 7
+trials: 1
+concurrency: 4
+agents:
+  - {provider: anthropic, model: claude-haiku-5-5, temperature: 1.0, name: haiku}
+systems: [zero_shot, schema_prompt, repair, verified, optimized]
+studies: {optimizer: false, guardrails: false}
+budget:
+  max_usd: 10
+  prices: {}            # USD per million tokens [input, output]; fill from the provider's pricing page
+  max_tokens: 15000000

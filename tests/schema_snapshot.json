@@ -1,0 +1,331 @@
+{
+ "schema": {
+  "customers": {
+   "customer_id": "integer",
+   "name": "text",
+   "email": "text",
+   "segment": "text",
+   "country": "text",
+   "city": "text",
+   "signup_date": "date"
+  },
+  "order_items": {
+   "order_id": "integer",
+   "line_no": "integer",
+   "product_id": "integer",
+   "quantity": "integer",
+   "unit_price": "numeric",
+   "discount": "numeric"
+  },
+  "orders": {
+   "order_id": "integer",
+   "customer_id": "integer",
+   "order_date": "date",
+   "status": "text",
+   "channel": "text"
+  },
+  "payments": {
+   "payment_id": "integer",
+   "order_id": "integer",
+   "method": "text",
+   "amount": "numeric",
+   "paid_at": "timestamp without time zone"
+  },
+  "products": {
+   "product_id": "integer",
+   "name": "text",
+   "category": "text",
+   "brand": "text",
+   "list_price": "numeric",
+   "launched_on": "date"
+  },
+  "returns": {
+   "return_id": "integer",
+   "order_id": "integer",
+   "product_id": "integer",
+   "reason": "text",
+   "returned_on": "date"
+  },
+  "reviews": {
+   "review_id": "integer",
+   "product_id": "integer",
+   "customer_id": "integer",
+   "rating": "smallint",
+   "created_at": "date"
+  }
+ },
+ "info": {
+  "customers": {
+   "columns": {
+    "customer_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "name": {
+     "type": "text",
+     "nullable": false,
+     "comment": null
+    },
+    "email": {
+     "type": "text",
+     "nullable": false,
+     "comment": null
+    },
+    "segment": {
+     "type": "text",
+     "nullable": false,
+     "comment": "consumer, corporate or small_business"
+    },
+    "country": {
+     "type": "text",
+     "nullable": false,
+     "comment": "ISO 3166 alpha-2 code, e.g. IN, US, GB, DE, BR"
+    },
+    "city": {
+     "type": "text",
+     "nullable": true,
+     "comment": "May be NULL when the customer did not give one"
+    },
+    "signup_date": {
+     "type": "date",
+     "nullable": false,
+     "comment": null
+    }
+   },
+   "comment": "One row per registered customer.",
+   "pk": [
+    "customer_id"
+   ],
+   "fks": []
+  },
+  "order_items": {
+   "columns": {
+    "order_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "line_no": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "product_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "quantity": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "unit_price": {
+     "type": "numeric",
+     "nullable": false,
+     "comment": null
+    },
+    "discount": {
+     "type": "numeric",
+     "nullable": false,
+     "comment": "Fraction between 0 and 0.3, e.g. 0.1 = 10% off"
+    }
+   },
+   "comment": "Order lines. Line revenue = quantity * unit_price * (1 - discount).",
+   "pk": [
+    "order_id",
+    "line_no"
+   ],
+   "fks": [
+    "FOREIGN KEY (order_id) REFERENCES orders(order_id)",
+    "FOREIGN KEY (product_id) REFERENCES products(product_id)"
+   ]
+  },
+  "orders": {
+   "columns": {
+    "order_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "customer_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "order_date": {
+     "type": "date",
+     "nullable": false,
+     "comment": null
+    },
+    "status": {
+     "type": "text",
+     "nullable": false,
+     "comment": "pending, completed, cancelled or returned"
+    },
+    "channel": {
+     "type": "text",
+     "nullable": false,
+     "comment": "web, mobile or store"
+    }
+   },
+   "comment": "One row per order. Only status = completed counts as a sale.",
+   "pk": [
+    "order_id"
+   ],
+   "fks": [
+    "FOREIGN KEY (customer_id) REFERENCES customers(customer_id)"
+   ]
+  },
+  "payments": {
+   "columns": {
+    "payment_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "order_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "method": {
+     "type": "text",
+     "nullable": false,
+     "comment": null
+    },
+    "amount": {
+     "type": "numeric",
+     "nullable": false,
+     "comment": null
+    },
+    "paid_at": {
+     "type": "timestamp without time zone",
+     "nullable": false,
+     "comment": null
+    }
+   },
+   "comment": "Payments received; an order can have more than one payment.",
+   "pk": [
+    "payment_id"
+   ],
+   "fks": [
+    "FOREIGN KEY (order_id) REFERENCES orders(order_id)"
+   ]
+  },
+  "products": {
+   "columns": {
+    "product_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "name": {
+     "type": "text",
+     "nullable": false,
+     "comment": null
+    },
+    "category": {
+     "type": "text",
+     "nullable": false,
+     "comment": null
+    },
+    "brand": {
+     "type": "text",
+     "nullable": true,
+     "comment": "May be NULL for unbranded products"
+    },
+    "list_price": {
+     "type": "numeric",
+     "nullable": false,
+     "comment": "Current catalogue price in USD; the price actually paid is order_items.unit_price"
+    },
+    "launched_on": {
+     "type": "date",
+     "nullable": false,
+     "comment": null
+    }
+   },
+   "comment": "Product catalogue.",
+   "pk": [
+    "product_id"
+   ],
+   "fks": []
+  },
+  "returns": {
+   "columns": {
+    "return_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "order_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "product_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "reason": {
+     "type": "text",
+     "nullable": true,
+     "comment": "damaged, wrong_item, not_as_described, changed_mind, or NULL if not given"
+    },
+    "returned_on": {
+     "type": "date",
+     "nullable": false,
+     "comment": null
+    }
+   },
+   "comment": "Returned products; one row per returned product line.",
+   "pk": [
+    "return_id"
+   ],
+   "fks": [
+    "FOREIGN KEY (order_id) REFERENCES orders(order_id)",
+    "FOREIGN KEY (product_id) REFERENCES products(product_id)"
+   ]
+  },
+  "reviews": {
+   "columns": {
+    "review_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "product_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "customer_id": {
+     "type": "integer",
+     "nullable": false,
+     "comment": null
+    },
+    "rating": {
+     "type": "smallint",
+     "nullable": false,
+     "comment": null
+    },
+    "created_at": {
+     "type": "date",
+     "nullable": false,
+     "comment": null
+    }
+   },
+   "comment": "Product ratings from 1 (worst) to 5 (best).",
+   "pk": [
+    "review_id"
+   ],
+   "fks": [
+    "FOREIGN KEY (product_id) REFERENCES products(product_id)",
+    "FOREIGN KEY (customer_id) REFERENCES customers(customer_id)"
+   ]
+  }
+ }
+}

@@ -1,0 +1,8 @@
+# Free run on a local open-weight model:  ollama pull qwen2.5-coder:7b && ollama serve
+name: local
+seed: 7
+trials: 2
+concurrency: 2
+agents:
+  - {provider: openai_compat, model: "qwen2.5-coder:7b", base_url: "http://localhost:11434/v1", name: qwen-coder-7b}
+systems: [zero_shot, schema_prompt, repair, verified]

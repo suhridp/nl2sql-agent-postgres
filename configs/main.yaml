@@ -1,0 +1,17 @@
+# Main experiment: two models plus (optionally) a local open-weight model, 3 trials per cell, all
+# systems, and both studies (the optimizer study can also ask a model for rewrites).
+name: main
+seed: 7
+trials: 3
+concurrency: 6
+agents:
+  - {provider: anthropic, model: claude-haiku-5-5, temperature: 1.0, name: haiku}
+  - {provider: anthropic, model: claude-sonnet-5-5, temperature: 1.0, name: sonnet}
+  # - {provider: openai_compat, model: "qwen2.5-coder:7b", base_url: "http://localhost:11434/v1", name: qwen-coder-7b}
+judge: {provider: anthropic, model: claude-sonnet-5-5, temperature: 0}   # proposes rewrites when llm_rewrites is on
+systems: [zero_shot, schema_prompt, repair, verified, optimized]
+studies: {optimizer: true, guardrails: true, rounds: 15, confirm_rounds: 15, llm_rewrites: true}
+budget:
+  max_usd: 60
+  prices: {}
+  max_tokens: 80000000

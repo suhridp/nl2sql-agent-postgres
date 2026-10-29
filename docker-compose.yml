@@ -1,0 +1,15 @@
+# One-command database: docker compose up -d   (first start builds the data, ~30 s)
+# Then: export SQLAGENT_DSN="host=127.0.0.1 port=5432 dbname=retail user=analyst password=analyst"
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports: ["5432:5432"]
+    volumes:
+      - ./db:/sql:ro
+      - ./db/docker-entrypoint.sh:/docker-entrypoint-initdb.d/10-retail.sh:ro
+    healthcheck:
+      test: ["CMD", "psql", "-U", "postgres", "-d", "retail", "-tAc", "SELECT 1 FROM edge.orders LIMIT 1"]
+      interval: 5s
+      retries: 30

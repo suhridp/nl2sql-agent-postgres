@@ -1,0 +1,12 @@
+# Harness validation on real PostgreSQL with scripted stand-in "models". No API key, ~2 minutes.
+# The optimizer and guardrail studies are REAL measurements (they need no model).
+# The agent numbers are NOT evidence about any model: they show the pipeline works.
+name: smoke
+seed: 7
+trials: 1
+concurrency: 4
+agents:
+  - {provider: scripted, policy: oracle}
+  - {provider: scripted, policy: noisy}
+systems: [zero_shot, schema_prompt, repair, verified, optimized]
+studies: {optimizer: true, guardrails: true, rounds: 9, confirm_rounds: 9}

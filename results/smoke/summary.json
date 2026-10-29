@@ -1,0 +1,1902 @@
+{
+ "models": [
+  "scripted:oracle",
+  "scripted:noisy"
+ ],
+ "systems": [
+  "zero_shot",
+  "schema_prompt",
+  "repair",
+  "verified",
+  "optimized"
+ ],
+ "rows": [
+  {
+   "model": "scripted:oracle",
+   "system": "zero_shot",
+   "n": 78,
+   "ex": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "ex_lenient": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "answered": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "first_failed": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "recovered": 0,
+   "n_first_failed": 0,
+   "silent_wrong": 0,
+   "result_check": {},
+   "by_difficulty": {
+    "easy": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "medium": {
+     "k": 30,
+     "n": 30,
+     "rate": 1.0,
+     "wilson": [
+      0.8864829086095221,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "hard": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "extra": {
+     "k": 8,
+     "n": 8,
+     "rate": 1.0,
+     "wilson": [
+      0.6755843804891231,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "false_clarify": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "ambiguous_clarified": {
+    "k": 10,
+    "n": 10,
+    "rate": 1.0,
+    "wilson": [
+     0.7224598312333834,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_abstained": {
+    "k": 8,
+    "n": 8,
+    "rate": 1.0,
+    "wilson": [
+     0.6755843804891231,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_hallucinated": 0,
+   "adversarial_refused": {
+    "k": 12,
+    "n": 12,
+    "rate": 1.0,
+    "wilson": [
+     0.7574992425007574,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "harmful_sql_ran": 0,
+   "adversarial_blocked_by": {},
+   "first_error_codes": {},
+   "latency_p50": 0.06486105918884277,
+   "latency_p95": 0.5155138969421387,
+   "llm_calls": 1,
+   "tokens": 168.47435897435898,
+   "opt_rewritten": 0,
+   "opt_geomean": null
+  },
+  {
+   "model": "scripted:oracle",
+   "system": "schema_prompt",
+   "n": 78,
+   "ex": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "ex_lenient": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "answered": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "first_failed": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "recovered": 0,
+   "n_first_failed": 0,
+   "silent_wrong": 0,
+   "result_check": {},
+   "by_difficulty": {
+    "easy": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "medium": {
+     "k": 30,
+     "n": 30,
+     "rate": 1.0,
+     "wilson": [
+      0.8864829086095221,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "hard": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "extra": {
+     "k": 8,
+     "n": 8,
+     "rate": 1.0,
+     "wilson": [
+      0.6755843804891231,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "false_clarify": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "ambiguous_clarified": {
+    "k": 10,
+    "n": 10,
+    "rate": 1.0,
+    "wilson": [
+     0.7224598312333834,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_abstained": {
+    "k": 8,
+    "n": 8,
+    "rate": 1.0,
+    "wilson": [
+     0.6755843804891231,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_hallucinated": 0,
+   "adversarial_refused": {
+    "k": 12,
+    "n": 12,
+    "rate": 1.0,
+    "wilson": [
+     0.7574992425007574,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "harmful_sql_ran": 0,
+   "adversarial_blocked_by": {},
+   "first_error_codes": {},
+   "latency_p50": 0.04425978660583496,
+   "latency_p95": 0.4967827796936035,
+   "llm_calls": 1,
+   "tokens": 814.1666666666666,
+   "opt_rewritten": 0,
+   "opt_geomean": null
+  },
+  {
+   "model": "scripted:oracle",
+   "system": "repair",
+   "n": 78,
+   "ex": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "ex_lenient": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "answered": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "first_failed": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "recovered": 0,
+   "n_first_failed": 0,
+   "silent_wrong": 0,
+   "result_check": {},
+   "by_difficulty": {
+    "easy": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "medium": {
+     "k": 30,
+     "n": 30,
+     "rate": 1.0,
+     "wilson": [
+      0.8864829086095221,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "hard": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "extra": {
+     "k": 8,
+     "n": 8,
+     "rate": 1.0,
+     "wilson": [
+      0.6755843804891231,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "false_clarify": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "ambiguous_clarified": {
+    "k": 10,
+    "n": 10,
+    "rate": 1.0,
+    "wilson": [
+     0.7224598312333834,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_abstained": {
+    "k": 8,
+    "n": 8,
+    "rate": 1.0,
+    "wilson": [
+     0.6755843804891231,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_hallucinated": 0,
+   "adversarial_refused": {
+    "k": 12,
+    "n": 12,
+    "rate": 1.0,
+    "wilson": [
+     0.7574992425007574,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "harmful_sql_ran": 0,
+   "adversarial_blocked_by": {},
+   "first_error_codes": {},
+   "latency_p50": 0.05045890808105469,
+   "latency_p95": 0.5040054321289062,
+   "llm_calls": 1,
+   "tokens": 814.1666666666666,
+   "opt_rewritten": 0,
+   "opt_geomean": null
+  },
+  {
+   "model": "scripted:oracle",
+   "system": "verified",
+   "n": 78,
+   "ex": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "ex_lenient": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "answered": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "first_failed": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "recovered": 0,
+   "n_first_failed": 0,
+   "silent_wrong": 0,
+   "result_check": {},
+   "by_difficulty": {
+    "easy": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "medium": {
+     "k": 30,
+     "n": 30,
+     "rate": 1.0,
+     "wilson": [
+      0.8864829086095221,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "hard": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "extra": {
+     "k": 8,
+     "n": 8,
+     "rate": 1.0,
+     "wilson": [
+      0.6755843804891231,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "false_clarify": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "ambiguous_clarified": {
+    "k": 10,
+    "n": 10,
+    "rate": 1.0,
+    "wilson": [
+     0.7224598312333834,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_abstained": {
+    "k": 8,
+    "n": 8,
+    "rate": 1.0,
+    "wilson": [
+     0.6755843804891231,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_hallucinated": 0,
+   "adversarial_refused": {
+    "k": 12,
+    "n": 12,
+    "rate": 1.0,
+    "wilson": [
+     0.7574992425007574,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "harmful_sql_ran": 0,
+   "adversarial_blocked_by": {},
+   "first_error_codes": {},
+   "latency_p50": 0.06056785583496094,
+   "latency_p95": 0.5276200771331787,
+   "llm_calls": 1,
+   "tokens": 814.1666666666666,
+   "opt_rewritten": 0,
+   "opt_geomean": null
+  },
+  {
+   "model": "scripted:oracle",
+   "system": "optimized",
+   "n": 78,
+   "ex": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "ex_lenient": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "answered": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "first_failed": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "recovered": 0,
+   "n_first_failed": 0,
+   "silent_wrong": 0,
+   "result_check": {},
+   "by_difficulty": {
+    "easy": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "medium": {
+     "k": 30,
+     "n": 30,
+     "rate": 1.0,
+     "wilson": [
+      0.8864829086095221,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "hard": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "extra": {
+     "k": 8,
+     "n": 8,
+     "rate": 1.0,
+     "wilson": [
+      0.6755843804891231,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "false_clarify": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "ambiguous_clarified": {
+    "k": 10,
+    "n": 10,
+    "rate": 1.0,
+    "wilson": [
+     0.7224598312333834,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_abstained": {
+    "k": 8,
+    "n": 8,
+    "rate": 1.0,
+    "wilson": [
+     0.6755843804891231,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_hallucinated": 0,
+   "adversarial_refused": {
+    "k": 12,
+    "n": 12,
+    "rate": 1.0,
+    "wilson": [
+     0.7574992425007574,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "harmful_sql_ran": 0,
+   "adversarial_blocked_by": {},
+   "first_error_codes": {},
+   "latency_p50": 0.9617297649383545,
+   "latency_p95": 7.235842227935791,
+   "llm_calls": 1,
+   "tokens": 814.1666666666666,
+   "opt_rewritten": 3,
+   "opt_geomean": 1.0119488501845877
+  },
+  {
+   "model": "scripted:noisy",
+   "system": "zero_shot",
+   "n": 78,
+   "ex": {
+    "k": 51,
+    "n": 78,
+    "rate": 0.6538461538461539,
+    "wilson": [
+     0.5432998724955743,
+     0.749949526343158
+    ],
+    "cluster": [
+     0.5512820512820513,
+     0.7564102564102564
+    ]
+   },
+   "ex_lenient": {
+    "k": 51,
+    "n": 78,
+    "rate": 0.6538461538461539,
+    "wilson": [
+     0.5432998724955743,
+     0.749949526343158
+    ],
+    "cluster": [
+     0.5512820512820513,
+     0.7564102564102564
+    ]
+   },
+   "answered": {
+    "k": 59,
+    "n": 78,
+    "rate": 0.7564102564102564,
+    "wilson": [
+     0.6506001354577253,
+     0.8381488626068285
+    ],
+    "cluster": [
+     0.6538461538461539,
+     0.8589743589743589
+    ]
+   },
+   "first_failed": {
+    "k": 19,
+    "n": 78,
+    "rate": 0.24358974358974358,
+    "wilson": [
+     0.16185113739317142,
+     0.3493998645422746
+    ],
+    "cluster": [
+     0.15384615384615385,
+     0.34615384615384615
+    ]
+   },
+   "recovered": 0,
+   "n_first_failed": 19,
+   "silent_wrong": 8,
+   "result_check": {},
+   "by_difficulty": {
+    "easy": {
+     "k": 15,
+     "n": 20,
+     "rate": 0.75,
+     "wilson": [
+      0.5312949900419365,
+      0.888139947210597
+     ],
+     "cluster": [
+      0.55,
+      0.9
+     ]
+    },
+    "medium": {
+     "k": 15,
+     "n": 30,
+     "rate": 0.5,
+     "wilson": [
+      0.33153851227173764,
+      0.6684614877282624
+     ],
+     "cluster": [
+      0.3333333333333333,
+      0.6666666666666666
+     ]
+    },
+    "hard": {
+     "k": 16,
+     "n": 20,
+     "rate": 0.8,
+     "wilson": [
+      0.5839782779742401,
+      0.9193436467288
+     ],
+     "cluster": [
+      0.6,
+      0.95
+     ]
+    },
+    "extra": {
+     "k": 5,
+     "n": 8,
+     "rate": 0.625,
+     "wilson": [
+      0.30573785458380187,
+      0.863158240538479
+     ],
+     "cluster": [
+      0.25,
+      1.0
+     ]
+    }
+   },
+   "false_clarify": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "ambiguous_clarified": {
+    "k": 0,
+    "n": 10,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.2775401687666166
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "unanswerable_abstained": {
+    "k": 0,
+    "n": 8,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.3244156195108769
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "unanswerable_hallucinated": 0,
+   "adversarial_refused": {
+    "k": 0,
+    "n": 12,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.2425007574992425
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "harmful_sql_ran": 0,
+   "adversarial_blocked_by": {
+    "database": 12
+   },
+   "first_error_codes": {
+    "database:syntax_error": 9,
+    "database:undefined_column": 7,
+    "database:undefined_table": 3
+   },
+   "latency_p50": 0.01794588565826416,
+   "latency_p95": 0.5458564758300781,
+   "llm_calls": 1,
+   "tokens": 178.47435897435898,
+   "opt_rewritten": 0,
+   "opt_geomean": null
+  },
+  {
+   "model": "scripted:noisy",
+   "system": "schema_prompt",
+   "n": 78,
+   "ex": {
+    "k": 51,
+    "n": 78,
+    "rate": 0.6538461538461539,
+    "wilson": [
+     0.5432998724955743,
+     0.749949526343158
+    ],
+    "cluster": [
+     0.5512820512820513,
+     0.7564102564102564
+    ]
+   },
+   "ex_lenient": {
+    "k": 51,
+    "n": 78,
+    "rate": 0.6538461538461539,
+    "wilson": [
+     0.5432998724955743,
+     0.749949526343158
+    ],
+    "cluster": [
+     0.5512820512820513,
+     0.7564102564102564
+    ]
+   },
+   "answered": {
+    "k": 59,
+    "n": 78,
+    "rate": 0.7564102564102564,
+    "wilson": [
+     0.6506001354577253,
+     0.8381488626068285
+    ],
+    "cluster": [
+     0.6538461538461539,
+     0.8589743589743589
+    ]
+   },
+   "first_failed": {
+    "k": 19,
+    "n": 78,
+    "rate": 0.24358974358974358,
+    "wilson": [
+     0.16185113739317142,
+     0.3493998645422746
+    ],
+    "cluster": [
+     0.15384615384615385,
+     0.34615384615384615
+    ]
+   },
+   "recovered": 0,
+   "n_first_failed": 19,
+   "silent_wrong": 8,
+   "result_check": {},
+   "by_difficulty": {
+    "easy": {
+     "k": 15,
+     "n": 20,
+     "rate": 0.75,
+     "wilson": [
+      0.5312949900419365,
+      0.888139947210597
+     ],
+     "cluster": [
+      0.55,
+      0.9
+     ]
+    },
+    "medium": {
+     "k": 15,
+     "n": 30,
+     "rate": 0.5,
+     "wilson": [
+      0.33153851227173764,
+      0.6684614877282624
+     ],
+     "cluster": [
+      0.3333333333333333,
+      0.6666666666666666
+     ]
+    },
+    "hard": {
+     "k": 16,
+     "n": 20,
+     "rate": 0.8,
+     "wilson": [
+      0.5839782779742401,
+      0.9193436467288
+     ],
+     "cluster": [
+      0.6,
+      0.95
+     ]
+    },
+    "extra": {
+     "k": 5,
+     "n": 8,
+     "rate": 0.625,
+     "wilson": [
+      0.30573785458380187,
+      0.863158240538479
+     ],
+     "cluster": [
+      0.25,
+      1.0
+     ]
+    }
+   },
+   "false_clarify": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "ambiguous_clarified": {
+    "k": 0,
+    "n": 10,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.2775401687666166
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "unanswerable_abstained": {
+    "k": 0,
+    "n": 8,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.3244156195108769
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "unanswerable_hallucinated": 0,
+   "adversarial_refused": {
+    "k": 0,
+    "n": 12,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.2425007574992425
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "harmful_sql_ran": 0,
+   "adversarial_blocked_by": {
+    "database": 12
+   },
+   "first_error_codes": {
+    "database:syntax_error": 9,
+    "database:undefined_column": 7,
+    "database:undefined_table": 3
+   },
+   "latency_p50": 0.009349942207336426,
+   "latency_p95": 0.3924384117126465,
+   "llm_calls": 1,
+   "tokens": 824.1666666666666,
+   "opt_rewritten": 0,
+   "opt_geomean": null
+  },
+  {
+   "model": "scripted:noisy",
+   "system": "repair",
+   "n": 78,
+   "ex": {
+    "k": 70,
+    "n": 78,
+    "rate": 0.8974358974358975,
+    "wilson": [
+     0.8104536622780937,
+     0.9471072847219651
+    ],
+    "cluster": [
+     0.8205128205128205,
+     0.9615384615384616
+    ]
+   },
+   "ex_lenient": {
+    "k": 70,
+    "n": 78,
+    "rate": 0.8974358974358975,
+    "wilson": [
+     0.8104536622780937,
+     0.9471072847219651
+    ],
+    "cluster": [
+     0.8205128205128205,
+     0.9615384615384616
+    ]
+   },
+   "answered": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "first_failed": {
+    "k": 19,
+    "n": 78,
+    "rate": 0.24358974358974358,
+    "wilson": [
+     0.16185113739317142,
+     0.3493998645422746
+    ],
+    "cluster": [
+     0.15384615384615385,
+     0.34615384615384615
+    ]
+   },
+   "recovered": 19,
+   "n_first_failed": 19,
+   "silent_wrong": 8,
+   "result_check": {},
+   "by_difficulty": {
+    "easy": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "medium": {
+     "k": 24,
+     "n": 30,
+     "rate": 0.8,
+     "wilson": [
+      0.6269395261897256,
+      0.9049502189759876
+     ],
+     "cluster": [
+      0.6333333333333333,
+      0.9333333333333333
+     ]
+    },
+    "hard": {
+     "k": 19,
+     "n": 20,
+     "rate": 0.95,
+     "wilson": [
+      0.7638641064874331,
+      0.9911187805671268
+     ],
+     "cluster": [
+      0.85,
+      1.0
+     ]
+    },
+    "extra": {
+     "k": 7,
+     "n": 8,
+     "rate": 0.875,
+     "wilson": [
+      0.5291051942301386,
+      0.9775830911367038
+     ],
+     "cluster": [
+      0.625,
+      1.0
+     ]
+    }
+   },
+   "false_clarify": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "ambiguous_clarified": {
+    "k": 0,
+    "n": 10,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.2775401687666166
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "unanswerable_abstained": {
+    "k": 8,
+    "n": 8,
+    "rate": 1.0,
+    "wilson": [
+     0.6755843804891231,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_hallucinated": 0,
+   "adversarial_refused": {
+    "k": 0,
+    "n": 12,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.2425007574992425
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "harmful_sql_ran": 0,
+   "adversarial_blocked_by": {
+    "validator": 12
+   },
+   "first_error_codes": {
+    "validator:syntax_error": 9,
+    "validator:unknown_column": 7,
+    "validator:unknown_table": 3
+   },
+   "latency_p50": 0.02107083797454834,
+   "latency_p95": 0.2484586238861084,
+   "llm_calls": 1.2435897435897436,
+   "tokens": 1047.2948717948718,
+   "opt_rewritten": 0,
+   "opt_geomean": null
+  },
+  {
+   "model": "scripted:noisy",
+   "system": "verified",
+   "n": 78,
+   "ex": {
+    "k": 75,
+    "n": 78,
+    "rate": 0.9615384615384616,
+    "wilson": [
+     0.8929137832970124,
+     0.9868344132191849
+    ],
+    "cluster": [
+     0.9102564102564102,
+     1.0
+    ]
+   },
+   "ex_lenient": {
+    "k": 75,
+    "n": 78,
+    "rate": 0.9615384615384616,
+    "wilson": [
+     0.8929137832970124,
+     0.9868344132191849
+    ],
+    "cluster": [
+     0.9102564102564102,
+     1.0
+    ]
+   },
+   "answered": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "first_failed": {
+    "k": 19,
+    "n": 78,
+    "rate": 0.24358974358974358,
+    "wilson": [
+     0.16185113739317142,
+     0.3493998645422746
+    ],
+    "cluster": [
+     0.15384615384615385,
+     0.34615384615384615
+    ]
+   },
+   "recovered": 19,
+   "n_first_failed": 19,
+   "silent_wrong": 3,
+   "result_check": {
+    "changed": 5
+   },
+   "by_difficulty": {
+    "easy": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "medium": {
+     "k": 28,
+     "n": 30,
+     "rate": 0.9333333333333333,
+     "wilson": [
+      0.7867618227892791,
+      0.9815233646723066
+     ],
+     "cluster": [
+      0.8333333333333334,
+      1.0
+     ]
+    },
+    "hard": {
+     "k": 19,
+     "n": 20,
+     "rate": 0.95,
+     "wilson": [
+      0.7638641064874331,
+      0.9911187805671268
+     ],
+     "cluster": [
+      0.85,
+      1.0
+     ]
+    },
+    "extra": {
+     "k": 8,
+     "n": 8,
+     "rate": 1.0,
+     "wilson": [
+      0.6755843804891231,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "false_clarify": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "ambiguous_clarified": {
+    "k": 0,
+    "n": 10,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.2775401687666166
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "unanswerable_abstained": {
+    "k": 8,
+    "n": 8,
+    "rate": 1.0,
+    "wilson": [
+     0.6755843804891231,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_hallucinated": 0,
+   "adversarial_refused": {
+    "k": 0,
+    "n": 12,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.2425007574992425
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "harmful_sql_ran": 0,
+   "adversarial_blocked_by": {
+    "validator": 12
+   },
+   "first_error_codes": {
+    "validator:syntax_error": 9,
+    "validator:unknown_column": 7,
+    "validator:unknown_table": 3
+   },
+   "latency_p50": 0.026958107948303223,
+   "latency_p95": 0.24888396263122559,
+   "llm_calls": 1.3076923076923077,
+   "tokens": 1105.948717948718,
+   "opt_rewritten": 0,
+   "opt_geomean": null
+  },
+  {
+   "model": "scripted:noisy",
+   "system": "optimized",
+   "n": 78,
+   "ex": {
+    "k": 75,
+    "n": 78,
+    "rate": 0.9615384615384616,
+    "wilson": [
+     0.8929137832970124,
+     0.9868344132191849
+    ],
+    "cluster": [
+     0.9102564102564102,
+     1.0
+    ]
+   },
+   "ex_lenient": {
+    "k": 75,
+    "n": 78,
+    "rate": 0.9615384615384616,
+    "wilson": [
+     0.8929137832970124,
+     0.9868344132191849
+    ],
+    "cluster": [
+     0.9102564102564102,
+     1.0
+    ]
+   },
+   "answered": {
+    "k": 78,
+    "n": 78,
+    "rate": 1.0,
+    "wilson": [
+     0.9530605462258804,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "first_failed": {
+    "k": 19,
+    "n": 78,
+    "rate": 0.24358974358974358,
+    "wilson": [
+     0.16185113739317142,
+     0.3493998645422746
+    ],
+    "cluster": [
+     0.15384615384615385,
+     0.34615384615384615
+    ]
+   },
+   "recovered": 19,
+   "n_first_failed": 19,
+   "silent_wrong": 3,
+   "result_check": {
+    "changed": 5
+   },
+   "by_difficulty": {
+    "easy": {
+     "k": 20,
+     "n": 20,
+     "rate": 1.0,
+     "wilson": [
+      0.8388698745050667,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    },
+    "medium": {
+     "k": 28,
+     "n": 30,
+     "rate": 0.9333333333333333,
+     "wilson": [
+      0.7867618227892791,
+      0.9815233646723066
+     ],
+     "cluster": [
+      0.8333333333333334,
+      1.0
+     ]
+    },
+    "hard": {
+     "k": 19,
+     "n": 20,
+     "rate": 0.95,
+     "wilson": [
+      0.7638641064874331,
+      0.9911187805671268
+     ],
+     "cluster": [
+      0.85,
+      1.0
+     ]
+    },
+    "extra": {
+     "k": 8,
+     "n": 8,
+     "rate": 1.0,
+     "wilson": [
+      0.6755843804891231,
+      1.0
+     ],
+     "cluster": [
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "false_clarify": {
+    "k": 0,
+    "n": 78,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.04693945377411976
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "ambiguous_clarified": {
+    "k": 0,
+    "n": 10,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.2775401687666166
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "unanswerable_abstained": {
+    "k": 8,
+    "n": 8,
+    "rate": 1.0,
+    "wilson": [
+     0.6755843804891231,
+     1.0
+    ],
+    "cluster": [
+     1.0,
+     1.0
+    ]
+   },
+   "unanswerable_hallucinated": 0,
+   "adversarial_refused": {
+    "k": 0,
+    "n": 12,
+    "rate": 0.0,
+    "wilson": [
+     0.0,
+     0.2425007574992425
+    ],
+    "cluster": [
+     0.0,
+     0.0
+    ]
+   },
+   "harmful_sql_ran": 0,
+   "adversarial_blocked_by": {
+    "validator": 12
+   },
+   "first_error_codes": {
+    "validator:syntax_error": 9,
+    "validator:unknown_column": 7,
+    "validator:unknown_table": 3
+   },
+   "latency_p50": 0.9496215581893921,
+   "latency_p95": 6.53380560874939,
+   "llm_calls": 1.3076923076923077,
+   "tokens": 1105.948717948718,
+   "opt_rewritten": 2,
+   "opt_geomean": 1.0418518071645873
+  }
+ ],
+ "paired": [
+  {
+   "model": "scripted:oracle",
+   "from": "zero_shot",
+   "to": "schema_prompt",
+   "n": 78,
+   "a_only": 0,
+   "b_only": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  {
+   "model": "scripted:oracle",
+   "from": "schema_prompt",
+   "to": "repair",
+   "n": 78,
+   "a_only": 0,
+   "b_only": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  {
+   "model": "scripted:oracle",
+   "from": "repair",
+   "to": "verified",
+   "n": 78,
+   "a_only": 0,
+   "b_only": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  {
+   "model": "scripted:oracle",
+   "from": "verified",
+   "to": "optimized",
+   "n": 78,
+   "a_only": 0,
+   "b_only": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  {
+   "model": "scripted:noisy",
+   "from": "zero_shot",
+   "to": "schema_prompt",
+   "n": 78,
+   "a_only": 0,
+   "b_only": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  {
+   "model": "scripted:noisy",
+   "from": "schema_prompt",
+   "to": "repair",
+   "n": 78,
+   "a_only": 0,
+   "b_only": 19,
+   "p": 3.814697265625e-06,
+   "p_holm": 1.52587890625e-05
+  },
+  {
+   "model": "scripted:noisy",
+   "from": "repair",
+   "to": "verified",
+   "n": 78,
+   "a_only": 0,
+   "b_only": 5,
+   "p": 0.0625,
+   "p_holm": 0.1875
+  },
+  {
+   "model": "scripted:noisy",
+   "from": "verified",
+   "to": "optimized",
+   "n": 78,
+   "a_only": 0,
+   "b_only": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  }
+ ],
+ "n_traces": 1080
+}
